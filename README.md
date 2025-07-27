@@ -1,1 +1,1 @@
-# Expense-Tracker-Budget-Planner-Django-Project-
+# Expense-Tracker-Budget-Planner (Django-Project)
