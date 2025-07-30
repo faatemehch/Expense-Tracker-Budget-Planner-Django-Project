@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     # third-party apps
     "allauth",
     "allauth.account",
+    "crispy_forms",
+    "crispy-bootstrap5",
 
     # local apps
     "expenses.apps.ExpensesConfig",
@@ -150,6 +152,10 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# crispy config
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
 # allauth config
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_SESSION_REMEMBER = True
