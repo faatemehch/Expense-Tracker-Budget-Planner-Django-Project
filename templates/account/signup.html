@@ -1,5 +1,7 @@
 {% extends '_base.html' %}
 {% load crispy_forms_tags %}
+{% load i18n %}
+{% load account socialaccount %}
 {% block content %}
 <div class="container">
     <h3>Sign Up</h3>
@@ -9,5 +11,15 @@
         <button class="btn btn-success" type="submit">SignUp</button>
     </form>
     <a href="{% url 'account_login' %}">Already have an account?</a>
+    <div class="border">
+        {% get_providers as socialaccount_providers %}
+        {% if socialaccount_providers %}
+        <div>
+            <div>
+                {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock content %}

@@ -47,9 +47,11 @@ INSTALLED_APPS = [
     # third-party apps
     "crispy_forms",
     "crispy_bootstrap5",
+    "debug_toolbar",
     "allauth",
     "allauth.account",
-    "debug_toolbar",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
 
     # local apps
     "expenses.apps.ExpensesConfig",
@@ -85,9 +87,8 @@ TEMPLATES = [
         },
     },
 ]
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+INTERNAL_IPS = ["127.0.0.1", "localhost"]
+
 WSGI_APPLICATION = "config.wsgi.application"
 
 AUTHENTICATION_BACKENDS = [
@@ -145,6 +146,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -165,4 +167,21 @@ ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
-LOGIN_REDIRECT_URL = "/"
+ACCOUNT_LOGIN_REDIRECT_URL = "home"
+ACCOUNT_LOGOUT_REDIRECT_URL = "account_login"
+
+SITE_ID = 1
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'OAUTH_PKCE_ENABLED': True,
+    }
+}
