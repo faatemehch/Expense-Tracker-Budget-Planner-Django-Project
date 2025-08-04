@@ -15,4 +15,4 @@ class ExpenseAdmin(admin.ModelAdmin):
 
 @admin.register(Budget)
 class BudgetAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'category', 'period', 'user', 'created_at', 'updated_at')
+    list_display = ('__str__', 'category', 'period', 'user', 'start_date', 'end_date')

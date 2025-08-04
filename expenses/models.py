@@ -7,14 +7,14 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Category(models.Model):
     CATEGORY_ICONS = (
-        ("utensils", "Food"),
-        ("car", "Food"),
-        ("home", "Housing"),
-        ("shopping-cart", "Shopping"),
-        ("film", "Entertainment"),
-        ("heart", "Health"),
-        ("lightbulb", "Utilities"),
-        ("book", "Education"),
+        ("utensils", _("Food")),
+        ("car", _("Transportation")),
+        ("home", _("Housing")),
+        ("shopping-cart", _("Shopping")),
+        ("film", _("Entertainment")),
+        ("heart", _("Health")),
+        ("lightbulb", _("Utilities")),
+        ("book", _("Education")),
     )
     name = models.CharField(max_length=64, verbose_name=_("Name"))
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name=_("user"))
@@ -60,10 +60,10 @@ class Expense(models.Model):
 
 class Budget(models.Model):
     PERIOD_CHOICES = [
-        ('D', 'Daily'),
-        ('W', 'Weekly'),
-        ('M', 'Monthly'),
-        ('Y', 'Yearly'),
+        ('D', _('Daily')),
+        ('W', _('Weekly')),
+        ('M', _('Monthly')),
+        ('Y', _('Yearly')),
     ]
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     period = models.CharField(max_length=1, choices=PERIOD_CHOICES, default='M')
