@@ -1,0 +1,37 @@
+{% extends '_base.html' %}
+{% load i18n %}
+{% block content %}
+<div class="container mt-3">
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <h3 class="text-warning-emphasis">List of Your Expenses</h3>
+        {% for expense in expenses %}
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button aria-controls="flush-collapse{{expense.id}}" aria-expanded="false" class="accordion-button collapsed"
+                        data-bs-target="#flush-collapse{{expense.id}}" data-bs-toggle="collapse"
+                        type="button">
+                    {% trans '$' %}
+                    {{expense.amount}}
+                    - {{expense.category}} <i class="fas fa-{{ expense.category.icon }}"></i>
+                </button>
+            </h2>
+            <div class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"
+                 id="flush-collapse{{expense.id}}">
+                <div class="accordion-body">
+                    <a href="" class="btn btn-sm btn-info">Edit</a>
+                    <a href="" class="btn btn-sm btn-warning">Delete</a>
+                    <br>
+                   <p>
+                       <span class="text-secondary">
+                           Date: {{expense.date }}
+                       </span>
+                        <br>
+                        {{ expense.description }}
+                   </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
