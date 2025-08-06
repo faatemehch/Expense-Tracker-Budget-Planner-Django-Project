@@ -46,9 +46,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     # third-party apps
+    "debug_toolbar",
     "crispy_forms",
     "crispy_bootstrap5",
-    "debug_toolbar",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -88,7 +88,9 @@ TEMPLATES = [
         },
     },
 ]
+
 INTERNAL_IPS = ["127.0.0.1", "localhost"]
+
 
 WSGI_APPLICATION = "config.wsgi.application"
 
@@ -168,9 +170,9 @@ ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
-ACCOUNT_DEFAULT_HTTP_PROTOCOL='http'
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'http'
 
-ACCOUNT_LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'expenses:dashboard'
 ACCOUNT_SIGNUP_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
 
