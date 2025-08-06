@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from environs import Env
+from django.contrib.messages import constants
 import os
 
 # environment variables
@@ -187,4 +188,9 @@ SOCIALACCOUNT_PROVIDERS = {
         },
         'OAUTH_PKCE_ENABLED': True,
     }
+}
+
+# messages framework
+MESSAGE_TAGS = {
+    constants.ERROR: "danger",
 }
