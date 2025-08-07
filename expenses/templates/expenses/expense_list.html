@@ -37,37 +37,9 @@
                 </div>
             </div>
         </div>
-
         <!--Delete popup-->
-       <div aria-hidden="true" aria-labelledby="deleteModalLabel{{expense.id}}"
-             class="modal fade" id="deleteModal{{expense.id}}" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="deleteModalLabel{{expense.id}}">
-                            Delete Expense: ${{expense.amount}} ({{expense.category}})
-                        </h1>
-                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to delete this expense?</p>
-                        <p><strong>Date:</strong> {{expense.date}}</p>
-                        {% if expense.description %}
-                        <p><strong>Description:</strong> {{expense.description}}</p>
-                        {% endif %}
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
-                        <form action="{% url 'expenses:expense_delete' expense.id %}" method="POST">
-                            {% csrf_token %}
-                            <button class="btn btn-danger" type="submit">Confirm Delete</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+       {% include "expenses/partials/_delete_modal.html" %}
         <!--  End Delete popup-->
-
         {% endfor %}
     </div>
 </div>
