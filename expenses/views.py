@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.decorators import login_required
 from django.views import generic
@@ -44,3 +45,12 @@ def add_expense(request):
         form = ExpenseForm()
         return render(request, 'expenses/expense_form.html', {'form': form})
 
+
+
+class ExpenseDeleteView(generic.DeleteView):
+    model = Expense
+    success_url = reverse_lazy('expenses:expense_list')
+    success_message = _("Expense was deleted successfully")
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
