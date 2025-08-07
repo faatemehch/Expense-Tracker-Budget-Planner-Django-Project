@@ -1,0 +1,28 @@
+{% extends '_base.html' %}
+{% block content %}
+<div class="container">
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <h3 class="text-info-emphasis">List of Your Budget</h3>
+        {% for budget in budgets %}
+        <h5>{{ budget.category.name }}</h5>
+        <p>{{ budget.get_period_display }} Budget: ${{ budget.amount }}</p>
+
+        <!-- Progress bar -->
+        <div class="progress">
+            <div class="progress-bar
+            {% if budget.amount > 90 %}bg-danger
+            {% elif budget.amount > 75 %}bg-warning
+            {% else %}bg-success{% endif %}"
+                 style="width: {{ budget.amount }}%">
+                {{ budget.amount|floatformat:0 }}%
+            </div>
+        </div>
+        <p>
+            Spent: ${{ budget.spent }} |
+            Remaining: ${{ budget.remaining }}
+        </p>
+    </div>
+    {% endfor %}
+</div>
+</div>
+{% endblock content %}

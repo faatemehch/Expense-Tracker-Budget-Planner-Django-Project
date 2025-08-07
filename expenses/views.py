@@ -20,7 +20,7 @@ def dashboard(request):
     }
     return render(request, 'expenses/dashboard.html', context)
 
-
+# --------------- Expenses View ---------------
 class ExpenseListView(generic.ListView):
     model = Expense
     context_object_name = 'expenses'
@@ -78,3 +78,12 @@ class ExpenseUpdateView(generic.UpdateView):
     def get_success_url(self):
         messages.success(self.request, _("Expense updated successfully"))
         return reverse_lazy('expenses:expense_list')
+
+# --------------- Budget View ---------------
+class BudgetListView(generic.ListView):
+    model = Budget
+    template_name = 'expenses/budget_list.html'
+    context_object_name = 'budgets'
+    paginate_by = 10
+    ordering = ('-start_date',)
+
