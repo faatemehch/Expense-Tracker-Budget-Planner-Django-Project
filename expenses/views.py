@@ -1,9 +1,9 @@
+from django.contrib.auth.decorators import login_required
+from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.decorators import login_required
-from django.views import generic
 from django.contrib import messages
+from django.views import generic
 
 from .models import Category, Budget, Expense
 from .forms import ExpenseForm
@@ -46,11 +46,28 @@ def add_expense(request):
         return render(request, 'expenses/expense_form.html', {'form': form})
 
 
-
 class ExpenseDeleteView(generic.DeleteView):
     model = Expense
-    success_url = reverse_lazy('expenses:expense_list')
-    success_message = _("Expense was deleted successfully")
+
+    # success_url = reverse_lazy('expenses:expense_list')
+    # success_message = "Expense was deleted successfully"
 
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
+
+    def get_success_url(self):
+        messages.success(self.request, _("Expense deleted successfully"))
+        return reverse_lazy('expenses:expense_list')
+
+
+class ExpenseUpdateView(generic.UpdateView):
+    model = Expense
+    fields = ('amount', 'date', 'category', 'description')
+    template_name = 'expenses/expense_form.html'
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
+    def get_success_url(self):
+        messages.success(self.request, _("Expense updated successfully"))
+        return reverse_lazy('expenses:expense_list')

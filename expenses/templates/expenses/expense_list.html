@@ -25,7 +25,7 @@
                             type="button">
                         {% trans 'Delete' %}
                     </button>
-                    <a class="btn btn-sm btn-warning" href=""> {% trans 'Edit' %}</a>
+                    <a class="btn btn-sm btn-warning" href="{% url 'expenses:expense_update' expense.id %}"> {% trans 'Edit' %}</a>
                     <br>
                     <p>
                        <span class="text-secondary">
