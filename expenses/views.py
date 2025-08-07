@@ -27,6 +27,13 @@ class ExpenseListView(generic.ListView):
     template_name = 'expenses/expense_list.html'
     ordering = ('-created_at',)
 
+    def get_queryset(self):
+        queryset = super().get_queryset().filter(user=self.request.user)
+        startDate = self.request.GET.get('startDate')
+        endDate = self.request.GET.get('endDate')
+        if startDate and endDate:
+            queryset = queryset.filter(date__range=(startDate, endDate))
+        return queryset
 
 @login_required
 def add_expense(request):

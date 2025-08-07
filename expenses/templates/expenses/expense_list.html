@@ -1,48 +1,62 @@
 {% extends '_base.html' %}
 {% load i18n %}
 {% block content %}
-<div class="container mt-3">
-    <div class="accordion accordion-flush" id="accordionFlushExample">
-        <h3 class="text-warning-emphasis">List of Your Expenses</h3>
-        {% for expense in expenses %}
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button aria-controls="flush-collapse{{expense.id}}" aria-expanded="false"
-                        class="accordion-button collapsed"
-                        data-bs-target="#flush-collapse{{expense.id}}" data-bs-toggle="collapse"
+<div class="container">
+<!-- Filter by Date-->
+<form class="row mb-2" method="get">
+    <div class="col-auto">
+        <label for="startDate">From:</label>
+        <input class="form-control" id="startDate" name="startDate" type="date">
+    </div>
+    <div class="col-auto">
+        <label for="endDate">To:</label>
+        <input class="form-control" id="endDate" name="endDate" type="date">
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-primary mt-4" type="submit">Confirm</button>
+    </div>
+</form>
+<!-- End filter form-->
+<div class="accordion accordion-flush" id="accordionFlushExample">
+    <h3 class="text-warning-emphasis">List of Your Expenses</h3>
+    {% for expense in expenses %}
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button aria-controls="flush-collapse{{expense.id}}" aria-expanded="false"
+                    class="accordion-button collapsed"
+                    data-bs-target="#flush-collapse{{expense.id}}" data-bs-toggle="collapse"
+                    type="button">
+                {% trans '$' %}
+                {{expense.amount}}
+                - {{expense.category}} <i class="fas fa-{{ expense.category.icon }}"></i>
+            </button>
+        </h2>
+        <div class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"
+             id="flush-collapse{{expense.id}}">
+            <div class="accordion-body">
+                <button class="btn btn-sm btn-primary"
+                        data-bs-target="#deleteModal{{expense.id}}"
+                        data-bs-toggle="modal"
                         type="button">
-                    {% trans '$' %}
-                    {{expense.amount}}
-                    - {{expense.category}} <i class="fas fa-{{ expense.category.icon }}"></i>
+                    {% trans 'Delete' %}
                 </button>
-            </h2>
-            <div class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"
-                 id="flush-collapse{{expense.id}}">
-                <div class="accordion-body">
-                    <button class="btn btn-sm btn-primary"
-                            data-bs-target="#deleteModal{{expense.id}}"
-                            data-bs-toggle="modal"
-                            type="button">
-                        {% trans 'Delete' %}
-                    </button>
-                    <a class="btn btn-sm btn-warning" href="{% url 'expenses:expense_update' expense.id %}"> {% trans 'Edit' %}</a>
+                <a class="btn btn-sm btn-warning" href="{% url 'expenses:expense_update' expense.id %}">
+                    {% trans 'Edit' %}</a>
+                <br>
+                <p>
+                   <span class="text-secondary">
+                       Date: {{expense.date }}
+                   </span>
                     <br>
-                    <p>
-                       <span class="text-secondary">
-                           Date: {{expense.date }}
-                       </span>
-                        <br>
-                        {{ expense.description }}
-                    </p>
-                </div>
+                    {{ expense.description }}
+                </p>
             </div>
         </div>
-        <!--Delete popup-->
-       {% include "expenses/partials/_delete_modal.html" %}
-        <!--  End Delete popup-->
-        {% endfor %}
     </div>
+    <!--Delete popup-->
+    {% include "expenses/partials/_delete_modal.html" %}
+    <!--  End Delete popup-->
+    {% endfor %}
 </div>
-
-
+</div>
 {% endblock content %}
