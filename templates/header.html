@@ -1,26 +1,24 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-dark bg-gradient">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">Expense Tracker</a>
+    <a class="navbar-brand text-white" href="/">Expense Tracker</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/">Link</a>
+          <a class="nav-link active text-white" aria-current="page" href="/">Home</a>
         </li>
           {% if request.user.is_authenticated %}
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dashboard
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="{% url 'expenses:expense_add' %}">Add a new expense</a></li>
+            <li><a class="dropdown-item" href="{% url 'expenses:expense_list' %}">All expenses</a></li>
             <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
           </ul>
         </li>
           {% else %}
@@ -34,7 +32,7 @@
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-warning" type="submit">Search</button>
       </form>
     </div>
   </div>
