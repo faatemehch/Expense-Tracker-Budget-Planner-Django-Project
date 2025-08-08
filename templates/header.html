@@ -18,15 +18,17 @@
             <li><a class="dropdown-item" href="{% url 'expenses:expense_add' %}">Add a new expense</a></li>
             <li><a class="dropdown-item" href="{% url 'expenses:expense_list' %}">All expenses</a></li>
             <li><hr class="dropdown-divider"></li>
+             <li><a class="dropdown-item" href="">Add a new Budget</a></li>
+            <li><a class="dropdown-item" href="{% url 'expenses:budget_list' %}">All Budgets</a></li>
             <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
           </ul>
         </li>
           {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'account_login' %}" aria-disabled="true">Login</a>
+          <a class="nav-link text-white" href="{% url 'account_login' %}" aria-disabled="true">Login</a>
         </li>
            <li class="nav-item">
-          <a class="nav-link" href="{% url 'account_signup' %}" aria-disabled="true">Signin</a>
+          <a class="nav-link text-white" href="{% url 'account_signup' %}" aria-disabled="true">Sign Up</a>
         </li>
           {% endif %}
       </ul>
