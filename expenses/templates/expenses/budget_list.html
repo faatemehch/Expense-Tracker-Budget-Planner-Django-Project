@@ -1,4 +1,5 @@
 {% extends '_base.html' %}
+{% load i18n %}
 {% block content %}
 <div class="container">
     <h3 class="text-info-emphasis">List of Your Budget</h3>
@@ -6,6 +7,18 @@
     <div class="accordion accordion-flush" id="accordionFlushExample{{budger.id}}">
         <h5>{{ budget.category.name }}</h5>
         <p>{{ budget.get_period_display }} Budget: ${{ budget.amount }}</p>
+        <div class="accordion-body">
+            <button class="btn btn-sm btn-primary"
+                    data-bs-target="#deleteModal{{budget.id}}"
+                    data-bs-toggle="modal"
+                    type="button">
+                {% trans 'Delete' %}
+            </button>
+            <a class="btn btn-sm btn-warning" href="{% url 'expenses:budget_update' budget.id %}">
+                {% trans 'Edit' %}
+            </a>
+            <br>
+        </div>
         <!-- Progress bar -->
         <div class="progress">
             <div class="progress-bar
@@ -17,10 +30,45 @@
             </div>
         </div>
         <!-- End Progress bar -->
+
         <p>
             Spent: ${{ budget.spent }} |
             Remaining: ${{ budget.remaining }}
         </p>
+    </div>
+    <div
+            aria-hidden="true"
+            aria-labelledby="deleteModalLabel{{budget.id}}"
+            class="modal fade"
+            id="deleteModal{{budget.id}}"
+            tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteModalLabel{{budget.id}}">
+                        Delete Budget: ${{budget.amount}} ({{budget.category}})
+                    </h1>
+                    <button
+                            aria-label="Close"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            type="button">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this budget?</p>
+                    <p><strong>Date:</strong> {{expense.start_date}}</p>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                    <form action="{% url 'expenses:budget_delete' budget.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" type="submit">Confirm Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     {% endfor %}
 </div>

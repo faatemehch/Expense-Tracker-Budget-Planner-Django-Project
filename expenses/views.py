@@ -101,3 +101,27 @@ class AddNewBudget(LoginRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+class BudgetDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Budget
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
+    def get_success_url(self):
+        messages.success(self.request, _("Budget updated successfully"))
+        return reverse_lazy('expenses:budget_list')
+
+
+class BudgetUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Budget
+    fields = ('amount', 'period', 'start_date', 'end_date', 'category',)
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
+    def get_success_url(self):
+        messages.success(self.request, _("Budget updated successfully"))
+        return reverse_lazy('expenses:budget_list')
+
