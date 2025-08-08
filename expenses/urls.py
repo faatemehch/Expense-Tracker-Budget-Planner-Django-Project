@@ -13,4 +13,5 @@ urlpatterns = [
     path('exoenses/<int:pk>/update/', views.ExpenseUpdateView.as_view(), name='expense_update'),
     # Budgets
     path('budget/', views.BudgetListView.as_view(), name='budget_list'),
+    path('budget/add/', views.AddNewBudget.as_view(), name='budget_add'),
 ]

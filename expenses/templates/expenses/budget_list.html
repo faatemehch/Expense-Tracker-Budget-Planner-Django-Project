@@ -1,12 +1,11 @@
 {% extends '_base.html' %}
 {% block content %}
 <div class="container">
-    <div class="accordion accordion-flush" id="accordionFlushExample">
-        <h3 class="text-info-emphasis">List of Your Budget</h3>
-        {% for budget in budgets %}
+    <h3 class="text-info-emphasis">List of Your Budget</h3>
+    {% for budget in budgets %}
+    <div class="accordion accordion-flush" id="accordionFlushExample{{budger.id}}">
         <h5>{{ budget.category.name }}</h5>
         <p>{{ budget.get_period_display }} Budget: ${{ budget.amount }}</p>
-
         <!-- Progress bar -->
         <div class="progress">
             <div class="progress-bar
@@ -17,12 +16,12 @@
                 {{ budget.amount|floatformat:0 }}%
             </div>
         </div>
+        <!-- End Progress bar -->
         <p>
             Spent: ${{ budget.spent }} |
             Remaining: ${{ budget.remaining }}
         </p>
     </div>
     {% endfor %}
-</div>
 </div>
 {% endblock content %}

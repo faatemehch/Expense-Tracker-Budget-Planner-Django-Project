@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -6,7 +7,7 @@ from django.contrib import messages
 from django.views import generic
 
 from .models import Category, Budget, Expense
-from .forms import ExpenseForm
+from .forms import ExpenseForm, BudgetForm
 
 
 @login_required
@@ -19,6 +20,7 @@ def dashboard(request):
         'budgets': budgets,
     }
     return render(request, 'expenses/dashboard.html', context)
+
 
 # --------------- Expenses View ---------------
 class ExpenseListView(generic.ListView):
@@ -34,6 +36,7 @@ class ExpenseListView(generic.ListView):
         if startDate and endDate:
             queryset = queryset.filter(date__range=(startDate, endDate))
         return queryset
+
 
 @login_required
 def add_expense(request):
@@ -79,7 +82,9 @@ class ExpenseUpdateView(generic.UpdateView):
         messages.success(self.request, _("Expense updated successfully"))
         return reverse_lazy('expenses:expense_list')
 
+
 # --------------- Budget View ---------------
+
 class BudgetListView(generic.ListView):
     model = Budget
     template_name = 'expenses/budget_list.html'
@@ -87,3 +92,12 @@ class BudgetListView(generic.ListView):
     paginate_by = 10
     ordering = ('-start_date',)
 
+
+class AddNewBudget(LoginRequiredMixin, generic.CreateView):
+    model = Budget
+    form_class = BudgetForm
+    success_url = reverse_lazy('expenses:budget_list')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)

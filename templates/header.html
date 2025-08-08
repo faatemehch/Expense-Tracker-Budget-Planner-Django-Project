@@ -18,7 +18,7 @@
             <li><a class="dropdown-item" href="{% url 'expenses:expense_add' %}">Add a new expense</a></li>
             <li><a class="dropdown-item" href="{% url 'expenses:expense_list' %}">All expenses</a></li>
             <li><hr class="dropdown-divider"></li>
-             <li><a class="dropdown-item" href="">Add a new Budget</a></li>
+             <li><a class="dropdown-item" href="{% url 'expenses:budget_add' %}">Add a new Budget</a></li>
             <li><a class="dropdown-item" href="{% url 'expenses:budget_list' %}">All Budgets</a></li>
             <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
           </ul>
